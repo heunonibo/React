@@ -57,10 +57,20 @@ class App extends Component {
       checked: !selected.checked
     };
 
+    console.log(nextTodos);
+    
     this.setState({
       todos: nextTodos
     });
 
+  }
+
+  handleRemove = (id) => {
+    const { todos } = this.state;
+
+    this.setState({
+      todos: todos.filter(todo => todo.id !== id) // 선택된 id가 제외된 배열을 만드는 코드
+    });
   }
 
   render() {
@@ -78,6 +88,7 @@ class App extends Component {
         <TodoItemList 
           todos={todos}
           onToggle={this.handleToggle}
+          onRemove={this.handleRemove}
         />
       </TodoListTemplate>
     );
