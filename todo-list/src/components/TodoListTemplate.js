@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './TodoListTemplate.css';
 
-const TodoListTemplate = ({form, children}) => {              // 비구조 할당 문법
+const TodoListTemplate = ({form, children, palette}) => {              // 비구조 할당 문법
     return (
         <main className="todo-list-template">               {/* 클래스를 줄때 className */}
             <div className="title">
                 TODOLIST
+            </div>
+            <div className="palette-wrapper">
+                { palette }
             </div>
             <div className="form-wrapper">
                 {form}

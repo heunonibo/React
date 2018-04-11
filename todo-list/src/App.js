@@ -3,6 +3,9 @@ import './index.css';
 import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
+import Palette from './components/Palette';
+
+const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
 
 class App extends Component {
 
@@ -13,7 +16,8 @@ class App extends Component {
       {id: 0, text: '리액트 소개', checked: false},
       {id: 1, text: '리액트 소개', checked: true},
       {id: 2, text: '리액트 소개', checked: false}
-    ]
+    ],
+    color: '#343a40'
   }
 
   handleChange = (e) => {
@@ -24,13 +28,14 @@ class App extends Component {
 
   // 추가 버튼 클릭 시 
   handleCreate = () => {
-    const { input, todos } = this.state;    // 생성 될 때마다 input, todos 상태 값을 변경
+    const { input, todos, color } = this.state;    // 생성 될 때마다 input, todos 상태 값을 변경
     this.setState({
       input: '',
       todos: todos.concat({
         id: this.id++,
         text: input,
-        checked: false
+        checked: false, 
+        color
       })
     });
   }
@@ -73,8 +78,15 @@ class App extends Component {
     });
   }
 
+
+  handleSelectColor = (color) => {
+    this.setState({
+      color
+    })
+  }
+
   render() {
-    const { input, todos } = this.state;     // 비구조화 할당 this.state.input 이렇게 안써도됑
+    const { input, todos, color } = this.state;     // 비구조화 할당 this.state.input 이렇게 안써도됑
 
     return (
       <TodoListTemplate form={(
@@ -83,7 +95,11 @@ class App extends Component {
           onChange={this.handleChange}
           onCreate={this.handleCreate}
           onKeyPress={this.handleKeyPress}
+          color={color}
         />
+      )}
+      palette={(
+        <Palette colors={colors} selected={color} onSelect={this.handleSelectColor}/>
       )}>
         <TodoItemList 
           todos={todos}
